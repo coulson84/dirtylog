@@ -12,6 +12,9 @@ html(lang="en")
     pre.
       new Image().src = "#{protocol}://#{host}/log/#{user.name}/{value}";
 
+    button(id='clear').
+      clear
+
     ul
       each val in user.list
         li= val

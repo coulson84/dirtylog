@@ -41,7 +41,7 @@ router.use(function(req, res){
   var info = /log\/\w+?\/.*$/;
   if(info.test(req.url)){
     getInfo(req.url);
-    res.send('');
+    res.end();
   }else if(req.url !== '/'){
     res.status('404');
     res.send('404');
@@ -66,6 +66,12 @@ var usersListening = {};
 io.on('connection', function(socket){
   socket.on('register', function(id){
   	usersListening[id] = socket;
+  });
+
+  socket.on('clear', function(id){
+    if(socket === usersListening[id]){
+      client.del(id);
+    }
   });
 });
 
