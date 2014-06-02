@@ -39,6 +39,12 @@ router.get('/log/:user/:info', function(req, res, next){
 	res.send('');
 });
 
+
+// splash page
+// router.get('/', function(req, res){
+
+// });
+
 router.use('/public', express.static(__dirname + '/public'));
 
 router.use(function(req, res){
@@ -48,7 +54,10 @@ router.use(function(req, res){
 
 app.use(router);
 
-var server = app.listen(3000, function() {
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+
+var server = app.listen(server_port, server_ip_address, function() {
     console.log('Listening on port %d', server.address().port);
 });
 
