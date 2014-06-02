@@ -20,10 +20,10 @@ router.param('user', function(req, res, next, id){
   next();
 });
 
-router.param('info', function(req, res, next, data){
-	req.data = data;
-	next();
-});
+// router.param('info', function(req, res, next, data){
+// 	req.data = req.url.substr(req.url.indexOf(data));
+// 	next();
+// });
 
 router.get('/:user', function(req, res, next) {
   var user = {name : req.user};
@@ -34,21 +34,20 @@ router.get('/:user', function(req, res, next) {
   });
 });
 
-router.get('/log/:user/:info', function(req, res, next){
-	client.rpush(req.user, req.data);
-	emitLog(req.user, req.data);
-	res.send('');
-});
-
-
-router.get('/', function(req, res){
-  res.render('index', {host: req.host, protocol:req.protocol});
-});
 
 router.use('/public', express.static(__dirname + '/public'));
 
 router.use(function(req, res){
-	res.send('nope nope nope');
+  var info = /log\/\w+?\/.*$/;
+  if(info.test(req.url)){
+    getInfo(req.url);
+    res.send('');
+  }else if(req.url !== '/'){
+    res.status('404');
+    res.send('404');
+  }else{
+    res.render('index', {host: req.host, protocol:req.protocol});
+  }	
 });
 
 
@@ -66,10 +65,22 @@ var usersListening = {};
 
 io.on('connection', function(socket){
   socket.on('register', function(id){
-  	console.log('register ' + id);
   	usersListening[id] = socket;
   });
 });
+
+function getInfo(url){
+  var info = /log\/(\w+?)\/(.*)$/;
+  var matches = url.match(info);
+  var user = matches[1];
+  var data = decodeURIComponent(matches[2]);
+  addInfo(user, data);
+}
+
+function addInfo(user, data){
+  client.rpush(user, data);
+  emitLog(user, data);
+}
 
 
 function emitLog(user, data){
