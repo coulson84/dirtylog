@@ -1,6 +1,17 @@
-h1.
+doctype html
+html(lang="en")
+  head
+    title dirtylogger
+    link(href='public/style.css', rel='stylesheet', type='text/css')
+  body
+    h1.
       User: #{user.name}
 
-ul
-  each val in user.list
-    li= val
+    input(id='user', class='hidden', value='#{user.name}')
+
+    ul
+      each val in user.list
+        li= val
+
+    script(src='/socket.io/socket.io.js')
+    script(src='public/dirtylog.js')
