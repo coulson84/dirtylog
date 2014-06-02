@@ -1,3 +1,9 @@
 .hidden{
 	display:none;
 }
+
+ul{
+	height:400px;
+	overflow-y:auto;
+	list-style: none;
+}
