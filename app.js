@@ -5,8 +5,10 @@ var router = express.Router();
 var socket = require('socket.io')
 
 var redis  = require('redis');
-var auth = process.env.REDIS_PASSWORD;// ? {auth_pass : REDIS_PASSWORD} : null;
-var client = redis.createClient(auth);
+var redisHost = process.env.OPENSHIFT_REDIS_HOST || null;
+var redisPort = process.env.OPENSHIFT_REDIS_PORT || null;
+var auth = process.env.REDIS_PASSWORD ? {auth_pass : REDIS_PASSWORD} : null;
+var client = redis.createClient(redisHost, redisPort, auth);
 
 var io;
 
