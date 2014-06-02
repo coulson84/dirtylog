@@ -8,7 +8,7 @@ var redis  = require('redis');
 var redisHost = process.env.OPENSHIFT_REDIS_HOST || null;
 var redisPort = process.env.OPENSHIFT_REDIS_PORT || null;
 var auth = process.env.REDIS_PASSWORD ? {auth_pass : process.env.REDIS_PASSWORD} : null;
-var client = redis.createClient(redisHost, redisPort, auth);
+var client = redis.createClient(redisPort, redisHost, auth);
 
 var io;
 
