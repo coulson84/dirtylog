@@ -5,7 +5,9 @@ var router = express.Router();
 var socket = require('socket.io')
 
 var redis  = require('redis');
-var client = redis.createClient();
+var client = redis.createClient({
+	auth_pass:'ZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5'
+});
 
 var io;
 
@@ -65,6 +67,6 @@ function emitLog(user, data){
 	if(typeof usersListening[user] === 'undefined'){
 		return;
 	}
-	
+
 	usersListening[user].emit('log', data);
 }
