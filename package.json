@@ -1,0 +1,16 @@
+{
+  "name": "dirtylog",
+  "version": "0.0.0",
+  "description": "logging in hostile environments",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "benbrunton@hotmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "express": "~4.4.0",
+    "redis": "~0.10.3",
+    "jade": "~1.3.1"
+  }
+}
