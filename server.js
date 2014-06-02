@@ -1,3 +1,3 @@
 #!/bin/env node
 
-require('app');
+require('./app');
