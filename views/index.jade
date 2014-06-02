@@ -5,13 +5,9 @@ html(lang="en")
     link(href='public/style.css', rel='stylesheet', type='text/css')
   body
     h1.
-      User: #{user.name}
+      Dirtylog
 
-    input(id='user', class='hidden', value='#{user.name}')
-
-    ul
-      each val in user.list
-        li= val
-
-    script(src='/socket.io/socket.io.js')
-    script(src='public/dirtylog.js')
+    p.
+      #{protocol}://#{host}/{key}
+    p.
+      #{protocol}://#{host}/log/{key}/{value}

@@ -30,7 +30,7 @@ router.get('/:user', function(req, res, next) {
   
   client.lrange(req.user, 0, -1, function(err, data){
   	user.list = data;
-  	res.render('index', { user: user });
+  	res.render('user', { user: user, host: req.host, protocol:req.protocol});
   });
 });
 
@@ -41,10 +41,9 @@ router.get('/log/:user/:info', function(req, res, next){
 });
 
 
-// splash page
-// router.get('/', function(req, res){
-
-// });
+router.get('/', function(req, res){
+  res.render('index', {host: req.host, protocol:req.protocol});
+});
 
 router.use('/public', express.static(__dirname + '/public'));
 

