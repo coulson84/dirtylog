@@ -1,0 +1,10 @@
+html(lang="en")
+  head
+    title dirtylog/report
+    link(href='/public/style.css', rel='stylesheet', type='text/css')
+    link(rel="icon", type="image/png", href="/public/favi.png")
+  body
+    h4 recent keys
+    ul
+      each val, index in report
+        li= index

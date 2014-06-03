@@ -10,11 +10,8 @@ a, a:visited{
 	display:none;
 }
 
-ul{
-	list-style: none;
-}
-
 ul.log{
+	list-style: none;
 	height:400px;
 	overflow-y:auto;
 	font-family:monospace;

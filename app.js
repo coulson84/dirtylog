@@ -10,6 +10,8 @@ var redisPort = process.env.OPENSHIFT_REDIS_PORT || null;
 var auth = process.env.REDIS_PASSWORD ? {auth_pass : process.env.REDIS_PASSWORD} : null;
 var client = redis.createClient(redisPort, redisHost, auth);
 
+
+var usersListening = {};
 var io;
 
 app.set('views', __dirname + '/views');
@@ -20,10 +22,10 @@ router.param('user', function(req, res, next, id){
   next();
 });
 
-// router.param('info', function(req, res, next, data){
-// 	req.data = req.url.substr(req.url.indexOf(data));
-// 	next();
-// });
+router.use('/public', express.static(__dirname + '/public'));
+router.get('/report', function(req, res){
+  res.render('report', {report: usersListening});
+});
 
 router.get('/:user', function(req, res, next) {
   var user = {name : req.user};
@@ -33,9 +35,6 @@ router.get('/:user', function(req, res, next) {
   	res.render('user', { user: user, host: req.host, protocol:req.protocol});
   });
 });
-
-
-router.use('/public', express.static(__dirname + '/public'));
 
 router.use(function(req, res){
   var info = /log\/\w+?\/.*$/;
@@ -61,7 +60,7 @@ var server = app.listen(server_port, server_ip_address, function() {
 });
 
 io = socket(server);
-var usersListening = {};
+
 
 io.on('connection', function(socket){
   var key = null;
