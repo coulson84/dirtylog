@@ -1,9 +1,40 @@
+body{
+	font-family:sans-serif;	
+}
+
 .hidden{
 	display:none;
 }
 
 ul{
+	list-style: none;
+}
+
+ul.log{
 	height:400px;
 	overflow-y:auto;
-	list-style: none;
+	font-family:monospace;
+}
+
+header{
+	padding:4px;
+	
+}
+
+.container{
+	max-width:1000px;
+	margin:10px auto;
+	padding:10px;
+}
+
+.container > p {
+	text-align:center;
+}
+
+.section{
+	margin:20px auto;
+	padding: 4px 10px;
+	border-radius:3px;
+	background-color:#F5F5F5;
+	max-width:400px;
 }
