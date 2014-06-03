@@ -2,6 +2,10 @@ body{
 	font-family:sans-serif;	
 }
 
+a, a:visited{
+	color:inherit;
+}
+
 .hidden{
 	display:none;
 }
@@ -14,11 +18,15 @@ ul.log{
 	height:400px;
 	overflow-y:auto;
 	font-family:monospace;
+	border-top:1px solid #CCC;
 }
 
 header{
 	padding:4px;
-	
+}
+
+label{
+	margin:0;
 }
 
 .container{
@@ -41,4 +49,16 @@ header{
 
 .section pre{
 	word-wrap:break-word;
+}
+
+.title{
+	font-size:1.2em;
+}
+
+.key{
+	font-weight: bold;
+}
+
+.labelledCode{
+	margin: 5px 0;
 }
