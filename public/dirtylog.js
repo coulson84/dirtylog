@@ -7,7 +7,7 @@ socket.emit('register', user);
 
 socket.on('log', function(msg){
 	var li = document.createElement('li');
-	li.innerHTML = msg;
+	li.innerText = msg;
 
 	ul.appendChild(li);
 	ul.scrollTop = ul.scrollHeight;
