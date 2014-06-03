@@ -37,7 +37,7 @@ router.get('/:user', function(req, res, next) {
 });
 
 router.use(function(req, res){
-  var info = /log\/\w+?\/.*$/;
+  var info = /log\/.+?\/.*$/;
   if(info.test(req.url)){
     getInfo(req.url);
     res.end();
@@ -93,9 +93,9 @@ io.on('connection', function(socket){
 });
 
 function getInfo(url){
-  var info = /log\/(\w+?)\/(.*)$/;
+  var info = /log\/(.+?)\/(.*)$/;
   var matches = url.match(info);
-  var user = matches[1];
+  var user = decodeURIComponent(matches[1]);
   var data = decodeURIComponent(matches[2]);
   addInfo(user, data);
 }
