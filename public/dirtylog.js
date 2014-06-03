@@ -13,6 +13,10 @@ socket.on('log', function(msg){
 	ul.scrollTop = ul.scrollHeight;
 });
 
+socket.on('clear', function(){
+	ul.innerHTML = '';
+});
+
 
 ul.scrollTop = ul.scrollHeight;
 

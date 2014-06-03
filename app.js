@@ -64,14 +64,32 @@ io = socket(server);
 var usersListening = {};
 
 io.on('connection', function(socket){
+  var key = null;
   socket.on('register', function(id){
-  	usersListening[id] = socket;
+    if(typeof usersListening[id] === 'undefined'){
+      usersListening[id] = [];
+    }
+  	usersListening[id].push(socket);
+    key = id;
   });
 
   socket.on('clear', function(id){
-    if(socket === usersListening[id]){
-      client.del(id);
+    if(usersListening[id].some(function(s){return s === socket})){
+      client.del(key);
+      usersListening[key].forEach(function(s){
+        s.emit('clear');
+      });
     }
+  });
+
+  socket.on('disconnect', function () {
+    if(typeof usersListening[key] === 'undefined'){
+      return;
+    }
+
+    usersListening[key] = usersListening[key].filter(function(s){
+      return s !== socket;
+    });
   });
 });
 
@@ -94,5 +112,5 @@ function emitLog(user, data){
 		return;
 	}
 
-	usersListening[user].emit('log', data);
+	usersListening[user].forEach(function(socket){socket.emit('log', data);});
 }
