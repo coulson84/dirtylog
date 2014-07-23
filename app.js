@@ -11,6 +11,11 @@ var auth = process.env.REDIS_PASSWORD ? {auth_pass : process.env.REDIS_PASSWORD}
 var client = redis.createClient(redisPort, redisHost, auth);
 
 
+client.on('error', function(){
+  console.log('an error occured with the DB');
+});
+
+
 var usersListening = {};
 var io;
 
