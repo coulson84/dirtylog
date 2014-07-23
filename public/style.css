@@ -59,3 +59,33 @@ label{
 .labelledCode{
 	margin: 5px 0;
 }
+
+.status .db{
+	width:100px;
+	height:15px;
+	font-size: 12px;
+	color:white;
+	text-align: center;
+	float:right;
+}
+
+.connected{
+	background-color:#238C00;
+}
+
+.error{
+	background-color: #B20000;
+}
+
+.clearfix{
+	clear:both;
+}
+
+.error_warning{
+	margin:5px;
+	background-color: #FF7373;
+	font-size:0.9em;
+	padding:4px;
+	color:#222;
+	text-align: center;
+}

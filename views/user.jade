@@ -27,6 +27,9 @@ html(lang="en")
     div
       button(id='clear') clear
 
+      if error
+        div(class="error_warning") An error has occurred. Please try again in a few moments...
+
       ul(class='log')
         each val in user.list
           li= val

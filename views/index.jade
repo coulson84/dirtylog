@@ -12,9 +12,14 @@ html(lang="en")
     header
       img(src="/public/logo.jpg", width="250", height="60")
 
+
+
+
     div(class='container')
       p.
         dirtylog is a quick and dirty debugging tool for environments where there is no obvious stdout or console
+
+      
 
       div(class="section")
         ol
@@ -24,3 +29,13 @@ html(lang="en")
           li
             p send your messages here:
             pre #{protocol}://#{host}/log/{key}/{value}
+
+
+        div(class="status")
+          if db
+            div(class="db connected") status: live
+
+          else
+            div(class="db error") status: offline
+
+          div(class="clearfix")

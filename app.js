@@ -10,9 +10,16 @@ var redisPort = process.env.OPENSHIFT_REDIS_PORT || null;
 var auth = process.env.REDIS_PASSWORD ? {auth_pass : process.env.REDIS_PASSWORD} : null;
 var client = redis.createClient(redisPort, redisHost, auth);
 
+var isConnected = false;
+
+client.on('connect', function(){
+  console.log('connected to database');
+  isConnected = true;
+});
 
 client.on('error', function(){
   console.log('an error occured with the DB');
+  isConnected = false;
 });
 
 
@@ -36,8 +43,12 @@ router.get('/:user', function(req, res, next) {
   var user = {name : req.user};
 
   client.lrange(req.user, 0, -1, function(err, data){
-  	user.list = data;
-  	res.render('user', { user: user, host: req.host, protocol:req.protocol});
+    if(err){
+      user.list = [];
+    }else{
+  	 user.list = data;
+    } 
+  	res.render('user', { user: user, host: req.host, protocol:req.protocol, error:!!err});
   });
 });
 
@@ -51,7 +62,8 @@ router.use(function(req, res){
     res.status('404');
     res.send('404');
   }else{
-    res.render('index', {host: req.host, protocol:req.protocol});
+    console.log('db:' + (isConnected?'connected':'error'));
+    res.render('index', {host: req.host, protocol:req.protocol, db:isConnected});
   }
 });
 
