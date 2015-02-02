@@ -4,8 +4,8 @@ simple traces using http beacons
 ##hacking
 
 There are very few dependencies:
-redis-server
-node & npm
+- redis-server
+- node & npm
 
 clone the repo then
 ``` npm install ```
